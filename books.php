@@ -1,8 +1,6 @@
 <?php
     include "connect.php";
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,4 +45,6 @@
         echo "<table class='table table-bordered table-hovered'>";
     ?>
 </body>
+<div>
+</div>
 </html>
