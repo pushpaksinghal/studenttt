@@ -63,7 +63,7 @@
 						<ul>
 							<li><a href="index.php">HOME</a></li>
 							<li><a href="books.php">BOOKS</a></li>
-							<li><a href="student_login.php">STUDENT-LOGIN</a></li>
+							<li><a href="admin_login.php">ADMIN-LOGIN</a></li>
 						</ul>
 					</nav>
 				    <?php

@@ -42,7 +42,7 @@
     if(isset($_POST['submit']))
     {
       $count=0;
-      $res=mysqli_query($db,"SELECT * FROM `login` WHERE username='$_POST[username]' && password='$_POST[password]';");
+      $res=mysqli_query($db,"SELECT * FROM `admin` WHERE username='$_POST[username]' && password='$_POST[password]';");
       $count=mysqli_num_rows($res);
 
       if($count==0)
