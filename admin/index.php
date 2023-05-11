@@ -1,3 +1,6 @@
+<?php
+	session_start();
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,13 +34,42 @@
 			<img src="images/Screenshot (30).png">
 			<h1 style="color: white;">GLA UNIVERSITY LIBRARY</h1>
 		</div>
-			<nav>
-				<ul>
+		
+		 <?php
+			if (isset($_SESSION['login_user']))
+			{?>
+				<nav>
+				    
+				   <ul> 
 					<li><a href="index.php">HOME</a></li>
 					<li><a href="books.php">BOOKS</a></li>
-					<li><a href="student_login.php">STUDENT-LOGIN</a></li>
-				</ul>
-			</nav>
+					<li><a href="logout.php">LOGOUT</a></li>
+					<li><a href="">
+                       <div style="color:dark grey">
+                        <?php
+                        echo "WELCOME-".$_SESSION['login_user'];
+                        ?>
+                       </div>
+                    </a></li>
+				   </ul>
+			    </nav>
+				<?php
+				
+			}	
+			else
+				{ 
+					?>
+					<nav>
+						<ul>
+							<li><a href="index.php">HOME</a></li>
+							<li><a href="books.php">BOOKS</a></li>
+							<li><a href="student_login.php">STUDENT-LOGIN</a></li>
+						</ul>
+					</nav>
+				    <?php
+				}
+				?>
+		
 		</header>
 		<section>
 		<div class="sec_img">
