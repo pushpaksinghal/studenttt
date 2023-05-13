@@ -24,7 +24,7 @@
             </form>
             <div class="wrapper" >
                 <?php
-                    $q=mysqli_query($db,"SELECT* FROM `login` where username='$_SESSION[login_user]'; ");
+                    $q=mysqli_query($db,"SELECT* FROM `admin` where username='$_SESSION[login_user]'; ");
                 ?>
                 <h1 style="text-align:centre  ;">
                     My profile
@@ -74,11 +74,11 @@
                 echo "</tr>";
                 echo "<tr>";
                         echo "<td>";
-                        echo "<b>  semester:  </b>";
+                        echo "<b>  branch:  </b>";
                         echo "</td>";
 
                         echo "<td>";
-                        echo $raw['semester'];
+                        echo $raw['branch'];
                         echo "</td>";
                 echo "</tr>";
                 echo "<tr>";

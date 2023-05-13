@@ -36,10 +36,11 @@
             if(isset($_SESSION['login_user']))
             { ?>
                 <ul  class="nav navbar-nav">
+                <li><a href="profile.php">PROFILE</a></li>
                 <li><a href="student.php"> STUDENT-INFORMATION</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                <li><a href="">
+                <li><a href="profile.php">
                     <div style="color:dark grey">
                         <?php
                         echo "Welcome ".$_SESSION['login_user'];
