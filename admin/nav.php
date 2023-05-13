@@ -35,7 +35,7 @@
         <?php
             if(isset($_SESSION['login_user']))
             { ?>
-                <ul>
+                <ul  class="nav navbar-nav">
                 <li><a href="student.php"> STUDENT-INFORMATION</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
