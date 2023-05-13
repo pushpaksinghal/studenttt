@@ -16,7 +16,7 @@
     {
       padding-left: 1000px;
     }
-    body {
+    .body {
   font-family: "Lato", sans-serif;
   transition: background-color .5s;
 }
@@ -89,7 +89,6 @@ background-color:grey ;
           </div>
           <br><br>
          <div class="h"><a href="add.php">Add Books</a></div> 
-          <div class="h"><a href="books.php">Books</a></div>
          <div class="h" > <a href="#">Request</a></div> 
           <div class="h"><a href="#">Issue</a></div>
         </div>
@@ -115,13 +114,15 @@ background-color:grey ;
     <!--__________________________search bar_____________________________________-->
     <div class="srch" >
             <form class="navbar-form" method="post" name="form1">
-             
                 <input class="form-control" type="text" name="search" placeholder="search books..." required="" >
                 <button style="background-color:#6db6b9e6 " type ="submit" name="submit" class="btn btn-default">
                     <span class="glyphicon glyphicon-search"></span>
               </button>
-              
-
+            </form>
+            <form class="navbar-form" method="post" name="form1">
+                <input class="form-control" type="text" name="bookid" placeholder="enter book id" required="" >
+                <button style="background-color:#6db6b9e6 " type ="submit" name="submit1" class="btn btn-default">Delete
+              </button>
             </form>
        </div>
     <h2 style="font-size:larger; margin-left:40% ">LIST OF BOOKS</h2>
@@ -148,9 +149,9 @@ background-color:grey ;
 			           while($row=mysqli_fetch_assoc($q))
 			              {
 				              echo "<tr>";
-				              echo "<td>"; echo $row['book id']; echo "</td>";
+				              echo "<td>"; echo $row['bookid']; echo "</td>";
 				              echo "<td>"; echo $row['booksname']; echo "</td>";
-				              echo "<td>"; echo $row['authors name']; echo "</td>";
+				              echo "<td>"; echo $row['authorsname']; echo "</td>";
 				              echo "<td>"; echo $row['subject']; echo "</td>";
 				              echo "<td>"; echo $row['quantity']; echo "</td>";
 				              echo "</tr>";
@@ -176,9 +177,9 @@ background-color:grey ;
               while($row=mysqli_fetch_assoc($res))
               {
                   echo "<tr>";
-                  echo "<td>"; echo $row['book id']; echo "</td>";
+                  echo "<td>"; echo $row['bookid']; echo "</td>";
                   echo "<td>"; echo $row['booksname']; echo "</td>";
-                  echo "<td>"; echo $row['authors name']; echo "</td>";
+                  echo "<td>"; echo $row['authorsname']; echo "</td>";
                   echo "<td>"; echo $row['subject']; echo "</td>";
                  
                   echo "<td>"; echo $row['quantity']; echo "</td>";
@@ -188,7 +189,27 @@ background-color:grey ;
                }
                   echo "</table>";
           }
-          	?>
+          if(isset($_POST['submit1']))
+          {
+                if(isset($_SESSION['login_user']))
+                {
+                      mysqli_query($db," DELETE from books where bookid='$_POST[bookid]'; ");
+                    ?>
+                    <script type="text/javascript">
+                        alert("DELETE SUCCESSFULLY");
+                    </script>
+                    <?php
+                }
+                else{
+                      ?>
+                      <script type="text/javascript">
+                          alert("Please login First");
+                      </script>
+                      <?php
+                }
+          }
+          ?>
+          
              </div>
 </body>
 

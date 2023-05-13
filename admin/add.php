@@ -17,8 +17,14 @@
       padding-left: 1000px;
     }
     body {
-  font-family: "Lato", sans-serif;
-  transition: background-color .5s;
+        background-color:burlywood;
+        font-family: "Lato", sans-serif;
+        
+        }
+.book
+{
+   width: 400px;
+   margin: 0 auto;
 }
 
 .sidenav {
@@ -89,14 +95,49 @@ background-color:grey ;
           </div>
           <br><br>
          <div class="h"><a href="add.php">Add Books</a></div> 
-          <div class="h"><a href="books.php">Books</a></div>
+          <div class="h"><a href="delete.php">Delete Books</a></div>
          <div class="h" > <a href="#">Request</a></div> 
           <div class="h"><a href="#">Issue</a></div>
         </div>
 
         <div id="main">
-          <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; MENU</span>
-       
+          <span style="font-size:30px;cursor:pointer;color:black;" onclick="openNav()">&#9776; MENU</span>
+            <div class="container">
+              <h2 style="color:black;font-family:lucida console; text-align:center;"> ADD NEW BOOKS.</h2>
+              <form action="" class="book" method="post"><br>
+                <input type="text" name="booksname" class=" form-control" placeholder="book name" required=""><br>
+                <input type="text" name="authorsname" class=" form-control" placeholder="auther name" required=""><br>
+                <input type="text" name="quantity" class=" form-control" placeholder="quantity" required=""><br>
+                <input type="text" name="bookid" class=" form-control" placeholder="bookID" required=""><br>
+                <input type="text" name="subject" class=" form-control" placeholder="department" required=""><br>
+
+                <button style="text-align:center;" class="btn btn-default" type="submit" name="submit">ADD</button>
+              </form>
+            </div>
+
+
+            <?php
+            if(isset($_POST['submit'])){
+                if(isset($_SESSION['login_user']))
+                {
+                    mysqli_query($db,"INSERT INTO books VALUES ('$_POST[booksname]','$_POST[authorsname]','$_POST[bookid]','$_POST[quantity]','$_POST[subject]');");
+                    ?>
+                    <script type="text/javascript">
+                        alert("Book added Successfully");
+                    </script>
+                    <?php
+                }
+                else{
+                    ?>
+                    <script type="text/javascript">
+                        alert("You Need TO LOGIN First")
+                    </script>
+                    <?php
+                }
+            }
+            
+            ?>
+        </div>
 
         <script>
         function openNav() {
@@ -111,3 +152,6 @@ background-color:grey ;
           document.body.style.backgroundColor = "white";
         }
         </script>
+        
+    </body>
+    </html>
