@@ -89,8 +89,8 @@ background-color:grey ;
           </div>
           <br><br>
          <div class="h"><a href="add.php">Add Books</a></div> 
-         <div class="h" > <a href="#">Request</a></div> 
-          <div class="h"><a href="#">Issue</a></div>
+         <div class="h" > <a href="request.php">Request</a></div> 
+          <div class="h"><a href="issue.php">Issue</a></div>
         </div>
 
         <div id="main">

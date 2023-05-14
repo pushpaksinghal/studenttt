@@ -90,7 +90,7 @@
           </div>
           <br><br>
          <div class="h"><a href="books.php">BOOKS</a></div> 
-         <div class="h" > <a href="request.php">Request</a></div> 
+         <div class="h" > <a href="request.php">REQUEST</a></div> 
           <div class="h"><a href="issue.php">Issue</a></div>
         </div>
 
@@ -203,8 +203,15 @@
           {
               if(isset($_SESSION['login_user']))
               {
-                  mysqli_query($db,"INSERT INTO issue_book Values ('$_SESSION[login_user]','$_POST[bookid]','','','');");
+                 
+                mysqli_query($db,"INSERT INTO issue_book Values ('$_SESSION[login_user]','$_POST[bookid]','','','');");
+                ?>
+                <script type="text/javascript">
+                      window.location="request.php"
+                </script>
+                <?php
               }
+
               else
               {
                 ?>

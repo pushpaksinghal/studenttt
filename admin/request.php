@@ -13,7 +13,13 @@
             <style type="text/css">
             .srch
             {
-            padding-left: 1000px;
+            padding-left: 500px;
+            }
+            .form-control{
+                width:300px;
+                height: 30px;
+                 background-color: #818181  ; 
+                 color: whitesmoke;  
             }
             .body 
             {
@@ -73,6 +79,13 @@
             background-color:grey ;
 
             }
+            .container
+            {
+                height: 700px;
+                background-color: black;
+                opacity: 0.8; 
+                color: white;
+            }
             </style>
 </head>
 <body>
@@ -110,46 +123,76 @@
           document.body.style.backgroundColor = "white";
         }
         </script>
+        <div class="container">
+            <div class="srch">
+                <form action="" method="post" name="form1">
+                   <br> <input type="text" name="username" class="form-control" placeholder="username" required="">
+                    <br><input type="text" name="bookid" class="form-control" placeholder="bookid" required="">
+                    <br><button class="btn btn-default" name="submit" type="submit" >submit</button>
+                </form>
+            </div>
+            <h3 style=" text-align:center;">Request a book</h3>
         <?php
-         if(isset($_SESSION['login_user']))
-          {
-            $q=mysqli_query($db,"SELECT * from issue_book where username='$_SESSION[login_user]' ;");
-            if(mysqli_num_rows($q)==0)
+        if(isset($_SESSION['login_user']))
+        {
+            $sql=" SELECT login.username, books.bookid,books.booksname,books.authorsname,books.quantity,books.bookstatus FROM login inner join issue_book ON login.username=issue_book.username inner join books ON issue_book.bookid=books.bookid WHERE issue_book.bookstatus=''";
+            $res=mysqli_query($db,$sql);
+            if(mysqli_num_rows($res)==0)
               {
+                echo "<h2><b>";
                 echo "there is no pending request.";
+                echo "</h2></b>";
               }
-            else
-              {
-                echo "<table class='table table-striped table-hover'>";
+              else{
+                echo "<table class='table '>";
                 echo "<tr style='background-color: #6db6b9e6;'>";
 				        //Table header
-				        echo "<th>"; echo " Book-ID";	echo "</th>";
-				        echo "<th>"; echo "status";  echo "</th>";
-				        echo "<th>"; echo "Issue Date";  echo "</th>";
-				        echo "<th>"; echo "Return Date";  echo "</th>";
+				        echo "<th>"; echo " Username";	echo "</th>";
+				        echo "<th>"; echo "Book ID";  echo "</th>";
+				        echo "<th>"; echo "Book Name";  echo "</th>";
+				        echo "<th>"; echo "Author Name";  echo "</th>";
+                        echo "<th>"; echo " Quantity";	echo "</th>";
+                        echo "<th>"; echo " Bookstatus";	echo "</th>";
 			          echo "</tr>";	
 
-			           while($row=mysqli_fetch_assoc($q))
+			           while($row=mysqli_fetch_assoc($res))
 			              {
 				              echo "<tr>";
+				              echo "<td>"; echo $row['username']; echo "</td>";
 				              echo "<td>"; echo $row['bookid']; echo "</td>";
-				              echo "<td>"; echo $row['bookstatus']; echo "</td>";
-				              echo "<td>"; echo $row['issue']; echo "</td>";
-				              echo "<td>"; echo $row['return']; echo "</td>";
+                              echo "<td>"; echo $row['booksname']; echo "</td>";
+                              echo "<td>"; echo $row['authorsname']; echo "</td>";
+                              echo "<td>"; echo $row['quantity']; echo "</td>";
+                              echo "<td>"; echo $row['bookstatus']; echo "</td>";
 				              echo "</tr>";
 			              }
 		            echo "</table>";
               }
-               /*if button is not pressed.*/
-          
-          }
-          else
-          {
-             echo "<br>";
-            echo "<h2>";
-            echo " Please login first to see the request ";
-            echo "</h2>";
-          }
+        }
+        
+        else{
+
+            ?>
+            <h3 style="text-align:center; color: yellow;">
+            you need to login to see the request
+            </h3>
+            <?php
+        }
+
+        if(isset($_POST['submit']))
+        {
+            $_SESSION['username']=$_POST['username'];
+            $_SESSION['bookid']=$_POST['bookid'];
+            ?>
+                <script type="text/javascript">
+                    window.location="approve.php";
+
+                </script>
+
+            <?php
+        }
           ?>
+          
+        </div>
 </body>
 </html>

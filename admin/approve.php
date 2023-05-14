@@ -9,16 +9,25 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>book request</title>
+    <title>approve request</title>
             <style type="text/css">
             .srch
             {
-            padding-left: 1000px;
+            padding-left: 500px;
+            }
+            .form-control{
+                width:300px;
+                height: 30px;
+                 background-color: #818181  ; 
+                 color: whitesmoke;  
             }
             .body 
             {
                 font-family: "Lato", sans-serif;
                 transition: background-color .5s;
+            }
+            .approve{
+                margin-left: 400px;
             }
             .sidenav
             {
@@ -73,6 +82,13 @@
             background-color:grey ;
 
             }
+            .container
+            {
+                height: 700px;
+                background-color: black;
+                opacity: 0.8; 
+                color: white;
+            }
             </style>
 </head>
 <body>
@@ -110,46 +126,38 @@
           document.body.style.backgroundColor = "white";
         }
         </script>
-        <?php
-         if(isset($_SESSION['login_user']))
-          {
-            $q=mysqli_query($db,"SELECT * from issue_book where username='$_SESSION[login_user]' ;");
-            if(mysqli_num_rows($q)==0)
-              {
-                echo "there is no pending request.";
-              }
-            else
-              {
-                echo "<table class='table table-striped table-hover'>";
-                echo "<tr style='background-color: #6db6b9e6;'>";
-				        //Table header
-				        echo "<th>"; echo " Book-ID";	echo "</th>";
-				        echo "<th>"; echo "status";  echo "</th>";
-				        echo "<th>"; echo "Issue Date";  echo "</th>";
-				        echo "<th>"; echo "Return Date";  echo "</th>";
-			          echo "</tr>";	
+        
+<div class="container">
+<h3 style="text-align: center;">Approve request</h3>
+<form action="" class="approve" method="post">
+<input class="form-control" type="text" name="bookstatus" placeholder="Approve or not" required=""><br>
+<input class="form-control" type="text" name="issue" placeholder="yyyy-mm-dd" required=""><br>
+<input class="form-control" type="text" name="return" placeholder="yyyy-mm-dd" required=""><br>
+<button class="btn tn-default"  type="submit" name="submit">Approve</button>
+</form>
+</div>
 
-			           while($row=mysqli_fetch_assoc($q))
-			              {
-				              echo "<tr>";
-				              echo "<td>"; echo $row['bookid']; echo "</td>";
-				              echo "<td>"; echo $row['bookstatus']; echo "</td>";
-				              echo "<td>"; echo $row['issue']; echo "</td>";
-				              echo "<td>"; echo $row['return']; echo "</td>";
-				              echo "</tr>";
-			              }
-		            echo "</table>";
-              }
-               /*if button is not pressed.*/
-          
-          }
-          else
-          {
-             echo "<br>";
-            echo "<h2>";
-            echo " Please login first to see the request ";
-            echo "</h2>";
-          }
-          ?>
-</body>
+<?php
+if(isset($_POST['submit']))
+{
+    mysqli_query($db,"UPDATE `issue_book` SET `bookstatus`='$_POST[bookstatus]',`issue`='$_POST[issue]', `return`='$_POST[return]' WHERE username='$_SESSION[username] 'and bookid ='$_SESSION[bookid]'");
+    mysqli_query($db, "UPDATE books SET quantity=quantity-1 WHERE bookid='$_SESSION[bookid]'");
+    $res=mysqli_query($db,"SELECT quantity from books where bookid ='$_SESSION[bookid]';");
+    while($row= mysqli_fetch_assoc($res))
+    {
+        if($row['quantity']==0)
+        {
+            mysqli_query($db,"UPDATE books SET bookstatus='Not Available' where bookid ='$_SESSION[bookid]'");
+        }
+    }
+    ?>
+        <script type="text/javascript">
+            alert("updateed successfully");
+            window.location="request.php";
+        </script>
+    <?php
+}
+?>
+        </div>
+    </body>
 </html>

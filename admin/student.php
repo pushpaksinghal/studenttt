@@ -80,8 +80,8 @@
           </div>
           <a href="profile.php">Profile</a>
           <a href="books.php">Books</a>
-          <a href="#">Request</a>
-          <a href="#">Issue</a>
+          <a href="request.php">Request</a>
+          <a href="issue.php">Issue</a>
         </div>
 
         <div id="main">
